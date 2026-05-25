@@ -27,27 +27,28 @@ logger = logging.getLogger("FunPayAPI.runner")
 class Runner:
     def __init__(self, account: Account, disable_message_requests: bool = False, disable_order_requests: bool = False):
         '''
-        Класс, описывающий метод /runner FunPay.
+        Класс, описывающий метод `/runner` FunPay.
 
         Получает и сортирует новые события, хранит полезную нагрузку, списки заказов/чатов/сообщений.
 
-        :param account: Экземпляр аккаунта (должен быть инициализирован с помощью метода Account.get).
-        :type account: Account
-        :param disable_message_requests: Отключить ли запросы для получения истории чатов, defaults to False.\n
-            Если True, listen не будет возвращать события
-            NewMessageEvent.\n
+        :param account: Экземпляр аккаунта (должен быть инициализирован с помощью метода :meth:`account.Account.get`).
+        :type account: :class:`Account`
+        :param disable_message_requests: Отключить ли запросы для получения истории чатов, defaults to :obj:`False`.\n
+            Если True, :meth:`listen` не будет возвращать события
+            * :class:`NewMessageEvent`.\n
             Из событий, связанных с чатами, будут возвращаться только:\n
-            * InitialChatEvent\n
-            * ChatsListChangedEvent\n
-            * LastChatMessageChangedEvent\n
-        :type disable_message_requests: bool, опционально
-        :param disable_order_requests: Отключить ли запросы для получения списка заказов, defaults to False.\n
-            Если True, listen не будет возвращать события
-            InitialOrderEvent, NewOrderEvent,
-            OrderStatusChangedEvent.\n
+            * :class:`InitialChatEvent`\n
+            * :class:`ChatsListChangedEvent`\n
+            * :class:`LastChatMessageChangedEvent`\n
+        :type disable_message_requests: :obj:`bool`, опционально
+        :param disable_order_requests: Отключить ли запросы для получения списка заказов, defaults to :obj:`False`.\n
+            Если True, :meth:`listen` не будет возвращать события
+            * :class:`InitialOrderEvent`,
+            * :class:`NewOrderEvent`,
+            * :class:`OrderStatusChangedEvent`.\n
             Из событий, связанных с заказами, будет возвращаться только
-            OrdersListChangedEvent.
-        :type disable_order_requests: bool, опционально
+            * :class:`OrdersListChangedEvent`.
+        :type disable_order_requests: :obj:`bool`, опционально
         '''
         if not account.is_initiated: raise exceptions.AccountNotInitiatedError()
 
@@ -74,12 +75,12 @@ class Runner:
         'Тег последнего события получения истории заказов.'
 
         self.runner_len: int = 10
-        'Количество событий, на которое успешно отвечает /runner.'
+        'Количество событий, на которое успешно отвечает `/runner`.'
 
 
         # -------------------------------- Кеш событий ------------------------------- #
         self.saved_orders: dict[str, OrderShortcut] = {}
-        'Сохраненные состояния заказов в виде {айди заказа: OrderShortcut}.'
+        'Сохраненные состояния заказов в виде {айди заказа: :class:`OrderShortcut`}.'
 
         self.chats_last_messages: dict[int, dict[str, int|str|None]] = {}
         'Список последних сообщений чатов.'
@@ -88,10 +89,10 @@ class Runner:
         'Айди сообщений, отправленных с помощью account.send_message в виде {айди чата: [айди сообщений]}.'
 
         self.last_message_ids: dict[int, int] = {}
-        'Айди последних сообщений в чатах (для событий сообщений при message_requests=True).'
+        'Айди последних сообщений в чатах (для событий сообщений при :obj:`message_requests` = True).'
 
         self.buyers_viewing: dict[int, BuyerViewing] = {}
-        '{айди покупателя: что смотрит}.'
+        '{айди покупателя: :class:`BuyerViewing`}.'
 
 
     def send_request(self, payload: RunnerPayload) -> Response:
@@ -99,9 +100,9 @@ class Runner:
         Отправляет запрос runner/ с указанной полезной нагрузкой.
 
         :param payload: Полезная нагрузка.
-        :type payload: RunnerPayload
+        :type payload: :class:`RunnerPayload`
         :return: Объект ответа.
-        :rtype: Response
+        :rtype: :class:`Response`
         '''
         logger.debug(f'Отправляю запрос: {payload}')
 
@@ -164,12 +165,11 @@ class Runner:
         """
         Парсит ответ FunPay и создает события.
 
-        :param updates: результат выполнения get_updates
+        :param updates: Результат выполнения :meth:`get_updates`
         :type updates: :obj:`dict`
-
-        :return: список событий.
-        :rtype: list[InitialChatEvent | ChatsListChangedEvent | LastChatMessageChangedEvent | NewMessageEvent | InitialOrderEvent | OrdersListChangedEvent | NewOrderEvent |
-        OrderStatusChangedEvent]
+        :return: Список событий.
+        :rtype: :obj:`list[InitialChatEvent | ChatsListChangedEvent | LastChatMessageChangedEvent | NewMessageEvent | InitialOrderEvent | OrdersListChangedEvent |
+        NewOrderEvent | OrderStatusChangedEvent]`
         """
         events = []
         # сортируем в т.ч. для того, корректно реагировало на сообщения покупателей сразу после оплаты (плагины автовыдачи)
@@ -187,12 +187,10 @@ class Runner:
         """
         Парсит события, связанные с чатами.
 
-        :param obj: словарь из результата выполнения get_updates, где
-            "type" == "chat_bookmarks".
+        :param obj: словарь из результата выполнения :meth:`get_updates`, где "type" == "chat_bookmarks".
         :type obj: :obj:`dict`
-
         :return: список событий, связанных с чатами.
-        :rtype: list[InitialChatEvent | ChatsListChangedEvent | LastChatMessageChangedEvent | NewMessageEvent]
+        :rtype: :obj:`list[InitialChatEvent | ChatsListChangedEvent | LastChatMessageChangedEvent | NewMessageEvent]`
         """
         events, lcmc_events = [], []
         self.__last_msg_event_tag = obj.get("tag")
@@ -289,12 +287,10 @@ class Runner:
         Получает историю переданных чатов и генерирует события новых сообщений.
 
 
-        :param chats_data: ID чатов и никнеймы собеседников (None, если никнейм неизвестен)
-            Например: {48392847: "SLLMK", 58392098: "Amongus", 38948728: None}
-        :type chats_data: :obj:`dict` {:obj:`int`: :obj:`str` or :obj:`None`}
-
-        :return: словарь с событиями новых сообщений в формате {ID чата: [список событий]}
-        :rtype: dict[int, list[NewMessageEvent]]
+        :param chats_data: Айди чатов и никнеймы собеседников (:obj:`None`, если никнейм неизвестен)
+        :type chats_data: :obj:`dict`
+        :return: Словарь с событиями новых сообщений в формате {айди чата: [список событий]}
+        :rtype: :obj:`dict[int, list[NewMessageEvent]]`
         """
         attempts = 3
         while attempts:
@@ -348,12 +344,10 @@ class Runner:
         """
         Парсит события, связанные с продажами.
 
-        :param obj: словарь из результата выполнения get_updates, где
-            "type" == "orders_counters".
+        :param obj: Словарь из результата выполнения get_updates, где "type" == "orders_counters".
         :type obj: :obj:`dict`
-
-        :return: список событий, связанных с продажами.
-        :rtype: list[InitialOrderEvent | OrdersListChangedEvent | NewOrderEvent | OrderStatusChangedEvent]
+        :return: Список событий, связанных с продажами.
+        :rtype: :obj:`list[InitialOrderEvent | OrdersListChangedEvent | NewOrderEvent | OrderStatusChangedEvent]`
         """
         events = []
         self.__last_order_event_tag = obj.get("tag")
@@ -397,16 +391,14 @@ class Runner:
 
     def update_chat_last_message(self, chat_id: int, message_id: int, message_text: str | None):
         """
-        Обновляет сохраненный ID последнего сообщения чата.
+        Обновляет сохраненный Айди последнего сообщения чата.
 
-        :param chat_id: ID чата.
+        :param chat_id: Айди чата.
         :type chat_id: :obj:`int`
-
-        :param message_id: ID сообщения.
+        :param message_id: Айди сообщения.
         :type message_id: :obj:`int`
-
-        :param message_text: текст сообщения или None, если это изображение.
-        :type message_text: :obj:`str` or :obj:`None`
+        :param message_text: Текст сообщения или :obj:`None`, если это изображение.
+        :type message_text: :obj:`str` | :obj:`None`
         """
         self.chats_last_messages[chat_id] = {
             'node_msg_id': message_id,
@@ -416,12 +408,11 @@ class Runner:
 
     def mark_as_by_bot(self, chat_id: int, message_id: int):
         """
-        Помечает сообщение с переданным ID, как отправленный с помощью :meth:`FunPayAPI.account.Account.send_message`.
+        Помечает сообщение с переданным айди, как отправленный с помощью :meth:`account.Account.send_message`.
 
-        :param chat_id: ID чата.
+        :param chat_id: Айди чата.
         :type chat_id: :obj:`int`
-
-        :param message_id: ID сообщения.
+        :param message_id: Айди сообщения.
         :type message_id: :obj:`int`
         """
         if self.by_bot_ids.get(chat_id) is None:
@@ -438,21 +429,18 @@ class Runner:
                    OrdersListChangedEvent |
                    NewOrderEvent |
                    OrderStatusChangedEvent
-               ]: # TODO stop
+               ]: # TODO remove
         """
         Бесконечно отправляет запросы для получения новых событий.
 
-        :param requests_delay: задержка между запросами (в секундах).
+        :param requests_delay: Задержка между запросами (в секундах).
         :type requests_delay: :obj:`int` or :obj:`float`, опционально
-
-        :param ignore_exceptions: игнорировать ошибки?
+        :param ignore_exceptions: Игнорировать ошибки?
         :type ignore_exceptions: :obj:`bool`, опционально
-
-        :return: генератор событий FunPay.
-        :rtype: Generator[InitialChatEvent | ChatsListChangedEvent | LastChatMessageChangedEvent | NewMessageEvent | InitialOrderEvent | OrdersListChangedEvent |
-        NewOrderEvent | OrderStatusChangedEvent]
+        :return: Генератор событий FunPay.
+        :rtype: :obj:`Generator[InitialChatEvent | ChatsListChangedEvent | LastChatMessageChangedEvent | NewMessageEvent | InitialOrderEvent | OrdersListChangedEvent |
+        NewOrderEvent | OrderStatusChangedEvent]`
         """
-
         while True:
             start_time = time()
 
