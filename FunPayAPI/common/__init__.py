@@ -24,13 +24,21 @@ import re
 # ---------------------------------------------------------------------------- #
 #                           Регулярные выражения (re)                          #
 # ---------------------------------------------------------------------------- #
+PRIVATE_CHAT_ID_RE = re.compile(r'users-(?P<user_1>\d+)-(?P<user_2>\d+)$')
+'''
+Скомпилированное регулярное выражение, описывающее айди чата вида users-{айди-1}-{айди-2}.
+
+Доступные группы match: `user_1`, `user_2`
+'''
+
+
 ORDER_ID_RE = re.compile(
     r'#(?P<order_id>[A-Z0-9]{8})'
 )
 '''
 Скомпилированное регулярное выражение, описывающее ID заказа.
 
-Доступные группы match: order_id.
+Доступные группы match: `order_id`.
 '''
 
 
@@ -40,7 +48,7 @@ PRODUCTS_AMOUNT_RE = re.compile(
 '''
 Скомпилированное регулярное выражение, описывающее запись кол-ва товаров в заказе.
 
-Доступные группы match: amount.
+Доступные группы match: `amount`.
 '''
 
 
@@ -57,7 +65,7 @@ ORDER_PURCHASED_RE = re.compile(
 '''
 Скомпилированное регулярное выражение, описывающее сообщение об оплате заказа. Лучше всего использовать вместе с ORDER_PURCHASED2_RE.
 
-Доступные группы match: buyer, order_id, lot.
+Доступные группы match: `buyer`, `order_id`, `lot`.
 '''
 
 
@@ -71,7 +79,7 @@ ORDER_CONFIRMED_RE = re.compile(
 '''
 Скомпилированное регулярное выражение, описывающее сообщение о подтверждении выполнения заказа.
 
-Доступные группы match: buyer, order_id, seller.
+Доступные группы match: `buyer`, `order_id`, `seller`.
 '''
 
 
@@ -83,7 +91,7 @@ NEW_FEEDBACK_RE = re.compile(
 '''
 Скомпилированное регулярное выражение, описывающее сообщение о новом отзыве.
 
-Доступные группы match: buyer, order_id.
+Доступные группы match: `buyer`, `order_id`.
 '''
 
 
@@ -97,7 +105,7 @@ FEEDBACK_CHANGED_RE = re.compile(
 '''
 Скомпилированное регулярное выражение, описывающее сообщение об изменении отзыва.
 
-Доступные группы match: buyer, order_id.
+Доступные группы match: `buyer`, `order_id`.
 '''
 
 
@@ -108,7 +116,7 @@ FEEDBACK_DELETED_RE = re.compile(
 '''
 Скомпилированное регулярное выражение, описывающее сообщение об удалении отзыва.
 
-Доступные группы match: buyer, order_id.
+Доступные группы match: `buyer`, `order_id`.
 '''
 
 
@@ -121,7 +129,7 @@ NEW_FEEDBACK_ANSWER_RE = re.compile(
 '''
 Скомпилированное регулярное выражение, описывающее сообщение о новом ответе на отзыв.
 
-Доступные группы match: seller, order_id.
+Доступные группы match: `seller`, `order_id`.
 '''
 
 
@@ -133,7 +141,7 @@ FEEDBACK_ANSWER_CHANGED_RE = re.compile(
 '''
 Скомпилированное регулярное выражение, описывающее сообщение об изменении ответа на отзыв.
 
-Доступные группы match: seller, order_id.
+Доступные группы match: `seller`, `order_id`.
 '''
 
 
@@ -145,7 +153,7 @@ FEEDBACK_ANSWER_DELETED_RE = re.compile(
 '''
 Скомпилированное регулярное выражение, описывающее сообщение об удалении ответа на отзыв.
 
-Доступные группы match: seller, order_id.
+Доступные группы match: `seller`, `order_id`.
 '''
 
 
@@ -156,7 +164,7 @@ ORDER_REOPENED_RE = re.compile(
 '''
 Скомпилированное регулярное выражение, описывающее сообщение о повтором открытии заказа.
 
-Доступные группы match: order_id.
+Доступные группы match: `order_id`.
 '''
 
 
@@ -171,7 +179,7 @@ REFUND_RE = re.compile(
 '''
 Скомпилированное регулярное выражение, описывающее сообщение о возврате денежных средств.
 
-Доступные группы match: seller, buyer, order_id.
+Доступные группы match: `seller`, `buyer`, `order_id`.
 '''
 
 
@@ -185,7 +193,7 @@ REFUND_BY_ADMIN_RE = re.compile(
 '''
 Скомпилированное регулярное выражение, описывающее сообщение о возврате денежных средств администратором.
 
-Доступные группы match: admin, buyer, order_id.
+Доступные группы match: `admin`, `buyer`, `order_id`.
 '''
 
 
@@ -196,7 +204,7 @@ PARTIAL_REFUND_RE = re.compile(
 '''
 Скомпилированное регулярное выражение, описывающее сообщение частичном о возврате денежных средств.
 
-Доступные группы match: order_id.
+Доступные группы match: `order_id`.
 '''
 
 
@@ -210,7 +218,7 @@ ORDER_CONFIRMED_BY_ADMIN_RE = re.compile(
 '''
 Скомпилированное регулярное выражение, описывающее сообщение о подтверждении выполнения заказа администратором.
 
-Доступные группы match: admin, order_id, seller.
+Доступные группы match: `admin`, `order_id`, `seller`.
 '''
 
 
@@ -259,7 +267,25 @@ EXCHANGE_RATE_RE = re.compile(
 '''
 Скомпилированное регулярное выражение, описывающее фразу о смене валюты.
 
-Доступные группы match: currency_to, exchange_rate_currency_from, currency_from_symbol, exchange_rate_currency_to, currency_to_symbol.
+Доступные группы match: `currency_to`, `exchange_rate_currency_from`, `currency_from_symbol`, `exchange_rate_currency_to`, `currency_to_symbol`.
+'''
+
+
+FUNPAY_URL_RE = re.compile(
+    r'https:\/\/funpay\.com\/'
+
+    r'(?:(?P<locale>en|uk)\/)?'
+
+    r'(?P<api_method>\w+(?:\/\w+)*)?'
+
+    r'(?:\?(?P<query_params>(?:&?[^=&]*=[^=&]*)*))?'
+
+    r'\/?'
+)
+'''
+Скомпилированное регулярное выражение, описывающее полный URL ссылки FunPay.
+
+Доступные группы match: `locale`, `api_method`, `query_params`.
 '''
 
 
@@ -269,6 +295,7 @@ from .types import *
 __all__ = [
     'exceptions',
     'generate_random_tag',
+    'PRIVATE_CHAT_ID_RE',
     'ORDER_ID_RE',
     'PRODUCTS_AMOUNT_RE',
     'ORDER_PURCHASED_RE',
@@ -287,6 +314,7 @@ __all__ = [
     'DISCORD_RE',
     'DEAR_VENDORS_RE',
     'EXCHANGE_RATE_RE',
+    'FUNPAY_URL_RE',
     'EventTypes',
     'MessageTypes',
     'OrderStatuses',

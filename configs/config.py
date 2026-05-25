@@ -29,7 +29,7 @@ class Config:
         Класс конфига.
 
         :param section: Секция конфига, отображаемая в Config.config, defaults to None.
-        :type section: str | None, optional
+        :type section: str | None, опционально
         '''
         with Config.__locks['init_lock']:
             self.__section = section
@@ -81,7 +81,7 @@ class Config:
         :param config_path: Путь к конфигу.
         :type config_path: Path
         :param section_names: Имена секций в конфиге, defaults to None.
-        :type section_names: list[str] | None, optional
+        :type section_names: list[str] | None, опционально
         :raises ValueError: Если имя секции уже есть в списке конфигов.
         '''
         if not section_names: section_names = [config_path.stem.upper()]
@@ -122,7 +122,7 @@ class Config:
         Сохраняет изменения в файле (файлах) конфига.
 
         :param force_save: Игнорировать Lock, defaults to False.
-        :type force_save: bool, optional
+        :type force_save: bool, опционально
         '''
         def save_without_section():
             config_paths_sections: dict[Path, list[str]] = {}

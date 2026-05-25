@@ -19,7 +19,7 @@ DEFAULT_CARDINAL_CONFIG_PATH = CONFIGS_DIR / 'default_cardinal_config.toml'
 'Путь к папке со стандартными настройками Кардинала.'
 
 
-VERSION_PATH = HOME_DIR / 'VERSION'
+VERSION_PATH = HOME_DIR / 'VERSION.md'
 'Путь к версии Кардинала.'
 
 

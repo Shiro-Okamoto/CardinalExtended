@@ -10,7 +10,6 @@ if TYPE_CHECKING:
     from typing import Generator
 
 
-import json
 import logging
 from bs4 import BeautifulSoup
 from time import time, sleep
@@ -41,14 +40,14 @@ class Runner:
             * InitialChatEvent\n
             * ChatsListChangedEvent\n
             * LastChatMessageChangedEvent\n
-        :type disable_message_requests: bool, optional
+        :type disable_message_requests: bool, опционально
         :param disable_order_requests: Отключить ли запросы для получения списка заказов, defaults to False.\n
             Если True, listen не будет возвращать события
             InitialOrderEvent, NewOrderEvent,
             OrderStatusChangedEvent.\n
             Из событий, связанных с заказами, будет возвращаться только
             OrdersListChangedEvent.
-        :type disable_order_requests: bool, optional
+        :type disable_order_requests: bool, опционально
         '''
         if not account.is_initiated: raise exceptions.AccountNotInitiatedError()
 
@@ -115,7 +114,7 @@ class Runner:
         payload_obj = payload.to_json()
         payload_obj['csrf_token'] = self.account.csrf_token
 
-        return self.account.method('post', 'runner/', headers, payload_obj, raise_not_200=True)
+        return self.account.method('post', 'https://funpay.com/runner/', headers=headers, payload=payload_obj, raise_not_200=True)
 
 
     def get_updates(self) -> dict:

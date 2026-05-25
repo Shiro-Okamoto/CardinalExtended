@@ -98,7 +98,7 @@ def get_releases(github_api_url: str, from_tag: Tag | None = None) -> list[Relea
     Получает данные о доступных релизах, начиная с тега.
 
     :param from_tag: Тег релиза, с которого начинать поиск, defaults to None.
-    :type from_tag: Tag | None, optional
+    :type from_tag: Tag | None, опционально
     :param github_api_url: Ссылка на апи репозитория (api.github.com/repos/{user}/{repo}).
     :type github_api_url: str
     :raises ReleaseNotFoundError: Если не удалось найти релиз с тегом from_tag.

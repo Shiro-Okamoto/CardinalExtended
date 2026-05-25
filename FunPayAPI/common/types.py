@@ -44,28 +44,28 @@ class EventTypes(Enum):
     В данном классе перечислены все типы событий FunPayAPI.
     '''
     INITIAL_CHAT = 1
-    '''Обнаружен чат (при первом запросе Runner'а).'''
+    'Обнаружен чат (при первом запросе Runner\'а).'
 
     CHATS_LIST_CHANGED = 2
-    '''Список чатов и/или последнее сообщение одного/нескольких чатов изменилось.'''
+    'Список чатов и/или последнее сообщение одного/нескольких чатов изменилось.'
 
     LAST_CHAT_MESSAGE_CHANGED = 3
-    '''В чате изменилось последнее сообщение.'''
+    'В чате изменилось последнее сообщение.'
 
     NEW_MESSAGE = 4
-    '''Обнаружено новое сообщение в истории чата.'''
+    'Обнаружено новое сообщение в истории чата.'
 
     INITIAL_ORDER = 5
-    '''Обнаружен заказ (при первом запросе Runner'а).'''
+    'Обнаружен заказ (при первом запросе Runner\'а).'
 
     ORDERS_LIST_CHANGED = 6
-    '''Список заказов и/или статус одного/нескольких заказов изменился.'''
+    'Список заказов и/или статус одного/нескольких заказов изменился.'
 
     NEW_ORDER = 7
-    '''Новый заказ.'''
+    'Новый заказ.'
 
     ORDER_STATUS_CHANGED = 8
-    '''Статус заказа изменился.'''
+    'Статус заказа изменился.'
 
 
 class MessageTypes(Enum):
@@ -73,61 +73,60 @@ class MessageTypes(Enum):
     В данном классе перечислены все типы сообщений.
     '''
     NON_SYSTEM = 1
-    '''Несистемное сообщение.'''
+    'Несистемное сообщение.'
 
 
     ORDER_PURCHASED = ORDER_PURCHASED_RE
-    '''Покупатель {buyer} оплатил заказ #{order_id}. Лот. X, не забудьте потом нажать кнопку «Подтвердить выполнение заказа» или
-     «Подтвердить получение валюты».'''
+    'Покупатель {buyer} оплатил заказ #{order_id}. Лот. X, не забудьте потом нажать кнопку «Подтвердить выполнение заказа» или «Подтвердить получение валюты».'
 
 
     ORDER_CONFIRMED = ORDER_CONFIRMED_RE
-    '''Покупатель X подтвердил успешное выполнение заказа #Y и отправил деньги продавцу Z.'''
+    'Покупатель X подтвердил успешное выполнение заказа #Y и отправил деньги продавцу Z.'
 
 
     NEW_FEEDBACK = NEW_FEEDBACK_RE
-    '''Покупатель X написал отзыв к заказу #Y.'''
+    'Покупатель X написал отзыв к заказу #Y.'
 
 
     FEEDBACK_CHANGED = FEEDBACK_CHANGED_RE
-    '''Покупатель X изменил отзыв к заказу #Y.'''
+    'Покупатель X изменил отзыв к заказу #Y.'
 
 
     FEEDBACK_DELETED = FEEDBACK_DELETED_RE
-    '''Покупатель X удалил отзыв к заказу #Y.'''
+    'Покупатель X удалил отзыв к заказу #Y.'
 
 
     NEW_FEEDBACK_ANSWER = NEW_FEEDBACK_ANSWER_RE
-    '''Продавец Z ответил на отзыв к заказу #Y.'''
+    'Продавец Z ответил на отзыв к заказу #Y.'
 
 
     FEEDBACK_ANSWER_CHANGED = FEEDBACK_ANSWER_CHANGED_RE
-    '''Продавец Z изменил ответ на отзыв к заказу #Y.'''
+    'Продавец Z изменил ответ на отзыв к заказу #Y.'
 
 
     FEEDBACK_ANSWER_DELETED = FEEDBACK_ANSWER_DELETED_RE
-    '''Продавец Z удалил ответ на отзыв к заказу #Y.'''
+    'Продавец Z удалил ответ на отзыв к заказу #Y.'
 
     ORDER_REOPENED = ORDER_REOPENED_RE
-    '''Заказ #Y открыт повторно.'''
+    'Заказ #Y открыт повторно.'
 
     REFUND = REFUND_RE
-    '''Продавец Z вернул деньги покупателю X по заказу #Y.'''
+    'Продавец Z вернул деньги покупателю X по заказу #Y.'
 
     PARTIAL_REFUND = PARTIAL_REFUND_RE
-    '''Часть средств по заказу #Y возвращена покупателю.'''
+    'Часть средств по заказу #Y возвращена покупателю.'
 
     ORDER_CONFIRMED_BY_ADMIN = ORDER_CONFIRMED_BY_ADMIN_RE
-    '''Администратор A подтвердил успешное выполнение заказа #Y и отправил деньги продавцу Z.'''
+    'Администратор A подтвердил успешное выполнение заказа #Y и отправил деньги продавцу Z.'
 
     DISCORD = DISCORD_RE
-    '''Вы можете перейти в Discord. Внимание: общение за пределами сервера FunPay считается нарушением правил.'''
+    'Вы можете перейти в Discord. Внимание: общение за пределами сервера FunPay считается нарушением правил.'
 
     DEAR_VENDORS = DEAR_VENDORS_RE
-    '''Уважаемые продавцы, не доверяйте сообщениям в чате! Перед выполнением заказа всегда проверяйте наличие оплаты в разделе «Мои продажи».'''
+    'Уважаемые продавцы, не доверяйте сообщениям в чате! Перед выполнением заказа всегда проверяйте наличие оплаты в разделе «Мои продажи».'
 
     REFUND_BY_ADMIN = REFUND_BY_ADMIN_RE
-    '''Администратор A вернул деньги покупателю X по заказу #Y.'''
+    'Администратор A вернул деньги покупателю X по заказу #Y.'
 
 
 class OrderStatuses(Enum):
@@ -135,11 +134,11 @@ class OrderStatuses(Enum):
     В данном классе перечислены все состояния заказов.
     '''
     PAID = 1
-    '''Заказ оплачен и ожидает выполнения.'''
+    'Заказ оплачен и ожидает выполнения.'
     CLOSED = 2
-    '''Заказ закрыт.'''
+    'Заказ закрыт.'
     REFUNDED = 3
-    '''Средства по заказу возвращены.'''
+    'Средства по заказу возвращены.'
 
 
 class SubCategoryTypes(Enum):
@@ -147,9 +146,9 @@ class SubCategoryTypes(Enum):
     В данном классе перечислены все типы подкатегорий.
     '''
     COMMON = 1
-    '''Подкатегория со стандартными лотами.'''
+    'Подкатегория со стандартными лотами.'
     CURRENCY = 2
-    '''Подкатегория с лотами игровой валюты (их нельзя поднимать).'''
+    'Подкатегория с лотами игровой валюты (их нельзя поднимать).'
 
 
 class Wallets(Enum):
@@ -157,21 +156,21 @@ class Wallets(Enum):
     В данном классе перечислены все кошельки для вывода средств с баланса FunPay.
     '''
     QIWI = 1
-    '''Qiwi кошелек.'''
+    'Qiwi кошелек.'
     BINANCE = 2
-    '''Binance Pay.'''
+    'Binance Pay.'
     TRC = 3
-    '''USDT TRC20.'''
+    'USDT TRC20.'
     CARD_RUB = 4
-    '''Рублевая банковская карта.'''
+    'Рублевая банковская карта.'
     CARD_USD = 5
-    '''Долларовая банковская карта.'''
+    'Долларовая банковская карта.'
     CARD_EUR = 6
-    '''Евро банковская карта.'''
+    'Евро банковская карта.'
     WEBMONEY = 7
-    '''WebMoney WMZ.'''
+    'WebMoney WMZ.'
     YOUMONEY = 8
-    '''ЮMoney.'''
+    'ЮMoney.'
 
 
 
@@ -180,13 +179,13 @@ class Currencies(Enum):
     В данном классе перечислены все типы валют баланса FunPay.
     '''
     USD = '$'
-    '''Доллар'''
+    'Доллар'
     RUB = '₽'
-    '''Рубль'''
+    'Рубль'
     EUR = '€'
-    '''Евро'''
+    'Евро'
     UNKNOWN = '¤'
-    '''Неизвестная валюта'''
+    'Неизвестная валюта'
 
 
 class Months(Enum):
@@ -267,13 +266,13 @@ class BuyerViewing:
     :param buyer_id: Айди покупателя.
     :type buyer_id: int
     :param link: Ссылка на лот, defaults to None.
-    :type link: str | None, optional
+    :type link: str | None, опционально
     :param text: Текстовое описание лота, defaults to None.
-    :type text: str | None, optional
+    :type text: str | None, опционально
     :param tag: Тег события, defaults to None.
-    :type tag: str | None, optional
+    :type tag: str | None, опционально
     :param html: HTML-код блока просмотра, defaults to None.
-    :type html: str | None, optional
+    :type html: str | None, опционально
     '''
     buyer_id: int
     'Айди покупателя.'
@@ -307,7 +306,7 @@ class ChatShortcut:
     :param html: HTML-код виджета чата.
     :type html: str
     :param last_by_bot: Отправлено ли последнее сообщение с помощью Account.send_message, defaults to None.
-    :type last_by_bot: bool | None, optional
+    :type last_by_bot: bool | None, опционально
     '''
     id: int
     'Айди чата.'
@@ -351,11 +350,11 @@ class Chat:
     :param html: HTML-код чата.
     :type html: str
     :param messages: Последние 100 сообщений чата, defaults to [].
-    :type messages: list[Message], optional
+    :type messages: list[Message], опционально
     :param looking_link: Ссылка на лот, который смотрит собеседник, defaults to None.
-    :type looking_link: str | None, optional
+    :type looking_link: str | None, опционально
     :param looking_text: Название лота, который смотрит собеседник, defaults to None.
-    :type looking_text: str | None, optional
+    :type looking_text: str | None, опционально
     '''
     id: int
     'Айди чата.'
@@ -396,33 +395,33 @@ class Message:
     :param html: HTML-код сообщения.
     :type html: str
     :param buyer_viewing: Лот, который смотрит собеседник, defaults to None.
-    :type buyer_viewing: BuyerViewing | None, optional
+    :type buyer_viewing: BuyerViewing | None, опционально
     :param by_bot: Отправлено ли сообщение с помощью Account.send_message, defaults to False.
-    :type by_bot: bool, optional
+    :type by_bot: bool, опционально
     :param image_link: Ссылка на изображение в сообщении, defaults to None.
-    :type image_link: str | None, optional
+    :type image_link: str | None, опционально
     :param image_name: Название изображения, defaults to None.
-    :type image_name: str | None, optional
+    :type image_name: str | None, опционально
     :param badge: Текст бэйджика техподдержки или автовыдачи FunPay, defaults to None.
-    :type badge: str | None, optional
+    :type badge: str | None, опционально
     :param is_employee: Является ли пользователь сотрудником, defaults to False.
-    :type is_employee: bool, optional
+    :type is_employee: bool, опционально
     :param is_support: Наличие бэйджика поддержки, defaults to False.
-    :type is_support: bool, optional
+    :type is_support: bool, опционально
     :param is_moderation: Наличие бэйджика модерации, defaults to False.
-    :type is_moderation: bool, optional
+    :type is_moderation: bool, опционально
     :param is_arbitration: Наличие бэйджика арбитража, defaults to False.
-    :type is_arbitration: bool, optional
+    :type is_arbitration: bool, опционально
     :param is_autoreply: Наличие бэйджика автоответа, defaults to False.
-    :type is_autoreply: bool, optional
+    :type is_autoreply: bool, опционально
     :param initiator_username: Ник пользователя, который выполнил действие (для системных сообщений), defaults to None.
-    :type initiator_username: str | None, optional
+    :type initiator_username: str | None, опционально
     :param initiator_id: Айди пользователя, который выполнил действие (для системных сообщений), defaults to None.
-    :type initiator_id: int | None, optional
+    :type initiator_id: int | None, опционально
     :param i_am_seller: Являемся ли мы продавцом по заказу (для системных сообщений), defaults to None.
-    :type i_am_seller: bool | None, optional
+    :type i_am_seller: bool | None, опционально
     :param i_am_buyer: Являемся ли мы покупателем по заказу (для системных сообщений), defaults to None.
-    :type i_am_buyer: bool | None, optional
+    :type i_am_buyer: bool | None, опционально
     '''
     id: int
     'Айди сообщения.'
@@ -693,9 +692,9 @@ class Category:
     :param name: Название категории (игры).
     :type name: str
     :param subcategories: Список подкатегорий, defaults to [].
-    :type subcategories: list[SubCategory], optional
+    :type subcategories: list[SubCategory], опционально
     :param position: Порядковый номер игры в списке игр (по алфавиту), defaults to 100_000.
-    :type position: int, optional
+    :type position: int, опционально
     '''
     id: int
     'Айди категории (game_id/data-id).'
@@ -764,7 +763,7 @@ class SubCategory:
     :param category: Родительская категория (игра).
     :type category: Category
     :param position: Порядковый номер подкатегории в общем списке игр (для сортировки), defaults to 100_000.
-    :type position: int, optional
+    :type position: int, опционально
     '''
     id: int
     'Айди подкатегории.'
@@ -825,11 +824,11 @@ class LotFields(__Fields):
     :param lot_id: Айди лота.
     :type lot_id: int
     :param subcategory: Подкатегория лота, defaults to None.
-    :type subcategory: SubCategory | None, optional
+    :type subcategory: SubCategory | None, опционально
     :param currency: Валюта лота, defaults to Currencies.UNKNOWN.
-    :type currency: Currencies, optional
+    :type currency: Currencies, опционально
     :param calc_result: Ответ на запрос о рассчете комиссии раздела, defaults to None.
-    :type calc_result: CalcResult | None, optional
+    :type calc_result: CalcResult | None, опционально
     '''
     lot_id: int
     'Айди лота.'
@@ -1011,15 +1010,15 @@ class ChipOffer:
     :param lot_id: Айди лота.
     :type lot_id: str
     :param active: Активен ли лот, defaults to False.
-    :type active: bool, optional
+    :type active: bool, опционально
     :param server: Сервер (игра), defaults to None.
-    :type server: str | None, optional
+    :type server: str | None, опционально
     :param side: , defaults to None.
-    :type side: str | None, optional
+    :type side: str | None, опционально
     :param price: Цена, defaults to None.
-    :type price: float | None, optional
+    :type price: float | None, опционально
     :param amount: Кол-во доступной валюты, defaults to None.
-    :type amount: int | None, optional
+    :type amount: int | None, опционально
     '''
     lot_id: str
     'Айди лота.'
@@ -1309,7 +1308,7 @@ class LotShortcut:
 @dataclass(unsafe_hash=True)
 class MyLotShortcut:
     '''
-    Класс, описывающий виджет лота со страницы https://funpay.com/lots/000/trade.
+    Класс, описывающий виджет лота со страницы https://funpay.com/lots/{айди_подкатегории}/trade.
 
     :param id: Айди лота.
     :type id: int | str
@@ -1528,15 +1527,15 @@ class Review:
     :param hidden: Скрыт ли отзыв.
     :type hidden: bool
     :param order_id: Айди заказа, к которому относится отзыв, defaults to None.
-    :type order_id: str | None, optional
+    :type order_id: str | None, опционально
     :param author: Автор отзыва, defaults to None.
-    :type author: str | None, optional
+    :type author: str | None, опционально
     :param author_id: Айди автора отзыва, defaults to None.
-    :type author_id: int | None, optional
+    :type author_id: int | None, опционально
     :param by_bot: Оставлен ли отзыв ботом, defaults to False.
-    :type by_bot: bool, optional
+    :type by_bot: bool, опционально
     :param reply_by_bot: Оставлен ли ответ на отзыв ботом, defaults to False.
-    :type reply_by_bot: bool, optional
+    :type reply_by_bot: bool, опционально
     '''
     stars: int | None
     'Кол-во звезде в отзыве.'
@@ -1705,7 +1704,7 @@ class BaseEvent:
     :type type: EventTypes
     '''
     runner_tag: str
-    '''Тег Runner'а.'''
+    'Тег Runner\'а.'
     type: EventTypes
     'Тип события.'
     event_time: int | float = field(init=False, default_factory=time)
@@ -1847,9 +1846,9 @@ class RunnerPayload:
     Класс, описывающий полезную нагрузку, отправляемую в запросе runner/.
 
     :param objects: Список объектов, отправляемых в / получаемых из запроса, defaults to [].
-    :type objects: list[RunnerObject], optional
+    :type objects: list[RunnerObject], опционально
     :param request: Объект, описывающий запрос, defaults to False.
-    :type request: RunnerRequest | False, optional
+    :type request: RunnerRequest | False, опционально
     '''
     objects: list[RunnerObject] = field(default_factory=list)
     'Список объектов, отправляемых в / получаемых из запроса.'
@@ -1874,9 +1873,9 @@ class RunnerObject:
     :param id: Айди аккаунта пользователя / пользователей.
     :type id: int | str
     :param tag: Тег запроса раннера, defaults to '00000000'.
-    :type tag: str, optional
+    :type tag: str, опционально
     :param data: Информация об объекте, defaults to False.
-    :type data: dict | False, optional
+    :type data: dict | False, опционально
     '''
     type: Literal['orders_counters', 'chat_bookmarks', 'c-p-u', 'chat_node'] | str
     'Тип объекта.'
@@ -1918,7 +1917,7 @@ class RunnerRequest:
     :param action: Тип действия (запроса).
     :type action: str
     :param data: Информация о запросе, defaults to False.
-    :type data: dict | False, optional
+    :type data: dict | False, опционально
     '''
     action: Literal['chat_message'] | str
     'Тип действия (запроса).'

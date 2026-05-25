@@ -190,11 +190,11 @@ class CardinalWorker:
         :param foo: Рабочая функция.
         :type foo: Callable[..., float  |  None]
         :param running_flag_name: Имя атрибута Кардинала - флага запущенного бесконечного цикла, defaults to None.
-        :type running_flag_name: str | None, optional
+        :type running_flag_name: str | None, опционально
         :param foo_result_is_work_delay: Использовать результат рабочей функции, как задержку после вызова, defaults to False.
-        :type foo_result_is_work_delay: bool, optional
+        :type foo_result_is_work_delay: bool, опционально
         :param work_delay: Задержка после вызова рабочей функции, defaults to 1.
-        :type work_delay: float, optional
+        :type work_delay: float, опционально
         '''
         self.__crd = crd
         'Связанный экземпляр Кардинала.'
@@ -314,7 +314,7 @@ class CardinalWorker:
         Блокирующая функция, ожидающая, когда бесконечный цикл остановится.
 
         :param check_delay: Задержка между проверками, defaults to 0.5.
-        :type check_delay: float, optional
+        :type check_delay: float, опционально
         '''
         while True:
             if self.stopped: return

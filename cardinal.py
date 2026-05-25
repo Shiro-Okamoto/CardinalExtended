@@ -376,7 +376,7 @@ class Cardinal:
         Обновляет данные аккаунта (баланс, токены и т.д.)
 
         :param attempts: Кол-во попыток, defaults to 3.
-        :type attempts: int, optional
+        :type attempts: int, опционально
         :return: Время (в секундах) для следующего вызова (в бесконечном цикле): 60, если не удалось получить данные аккаунта, иначе 3600.
         :rtype: int
         '''
@@ -501,9 +501,9 @@ class Cardinal:
         Обновляет профиль FunPay.
 
         :param infinite_polling: Бесконечно посылать запросы, пока не будет получен ответ (игнорировать макс. кол-во попыток), defaults to True.
-        :type infinite_polling: bool, optional
+        :type infinite_polling: bool, опционально
         :param attempts: Максимальное кол-во попыток, defaults to 3.
-        :type attempts: int, optional
+        :type attempts: int, опционально
         :raises exceptions.ProfileUpdateError: Не удалось обновить профиль.
         '''
         log.info(self.translate('c_ext_getting_profile_data'))
@@ -1186,7 +1186,7 @@ class Cardinal:
         Получает информацию о балансе.
 
         :param attempts: Кол-во попыток, defaults to 3.
-        :type attempts: int, optional
+        :type attempts: int, опционально
         :raises GetBalanceError: Не удалось получить баланс.
         :return: Баланс.
         :rtype: Balance

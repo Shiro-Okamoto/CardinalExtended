@@ -179,7 +179,7 @@ class Localizer:
         :param value: Перевод.
         :type value: str
         :param force_add: Заменять перевод, если он уже существует, defaults to False
-        :type force_add: bool, optional
+        :type force_add: bool, опционально
         '''
         if not hasattr(self, locale):
             try: _ = self.__get_locale(locale)
