@@ -21,7 +21,7 @@ from . import (
     exceptions, MessageTypes, OrderStatuses, SubCategoryTypes, Currencies, Wallets, Months, generate_random_tag, PRIVATE_CHAT_ID_RE, PRODUCTS_AMOUNT_RE, EXCHANGE_RATE_RE,
     FUNPAY_URL_RE, BuyerViewing, ChatShortcut, Chat, Message, OrderShortcut, Order, Category, SubCategory, LotFields, ChipFields, LotPage, SellerShortcut, LotShortcut,
     MyLotShortcut, UserProfile, Review, Balance, PaymentMethod, CalcResult, RunnerRequest, RunnerObject, RunnerPayload, RunnerResponse, FloodErrorTexts,
-    MultiuserFloodErrorTexts
+    MultiuserFloodErrorTexts, INVISIBLE_CHARACTER
 )
 
 
@@ -206,10 +206,6 @@ class Account:
             SubCategoryTypes.COMMON: {},
             SubCategoryTypes.CURRENCY: {}
         }
-
-
-        self.__bot_character = '⁡'
-        'Если сообщение начинается с этого символа, значит оно отправлено ботом.'
 
 
         self.session = Session()
@@ -925,7 +921,7 @@ class Account:
             request.data['image_id'] = image_id
             request.data['content'] = ''
 
-        else: request.data['content'] = f'{self.__bot_character}{text}' if text else ''
+        else: request.data['content'] = f'{INVISIBLE_CHARACTER}{text}' if text else ''
 
         chats_data = RunnerObject(
             'chat_node',
@@ -989,7 +985,7 @@ class Account:
                     image_link = image_tag.get('href')
 
                 else:
-                    msg_text = parser.find('div', {'class': 'chat-msg-text'}).text.replace(self.__bot_character, '', 1)
+                    msg_text = parser.find('div', {'class': 'chat-msg-text'}).text.replace(INVISIBLE_CHARACTER, '', 1)
 
                     image_name = None
                     image_link = None
@@ -1088,7 +1084,7 @@ class Account:
 
         payload = {
             'authorId': self.id,
-            'text': f'{text}{self.__bot_character}' if text else text,
+            'text': f'{text}{INVISIBLE_CHARACTER}' if text else text,
             'rating': rating,
             'csrf_token': self.csrf_token,
             'orderId': order_id
@@ -1719,8 +1715,8 @@ class Account:
                 order_id,
                 buyer_username,
                 buyer_id,
-                text and text.endswith(self.bot_character),
-                reply and reply.endswith(self.bot_character)
+                text and text.endswith(INVISIBLE_CHARACTER),
+                reply and reply.endswith(INVISIBLE_CHARACTER)
             )
 
 
@@ -2043,14 +2039,14 @@ class Account:
                 int(msg['data-id']),
                 msg.find('div', {'class': 'media-user-name'}).text,
                 (
-                    last_msg_text if not (last_msg_text:=msg.find('div', {'class': 'contact-item-message'}).text).startswith(self.bot_character) else
+                    last_msg_text if not (last_msg_text:=msg.find('div', {'class': 'contact-item-message'}).text).startswith(INVISIBLE_CHARACTER) else
                     last_msg_text[1:]
                 ),
                 int(msg.get('data-node-msg')),
                 int(msg.get('data-user-msg')),
                 True if 'unread' in msg.get('class') else False,
                 str(msg),
-                True if last_msg_text.startswith(self.bot_character) else False
+                True if last_msg_text.startswith(INVISIBLE_CHARACTER) else False
             ) for msg in chats
         ]
 
@@ -2663,7 +2659,7 @@ class Account:
                 else: message_text = parser.find('div', {'class': 'chat-msg-text'}).text
 
 
-                if message_text.startswith(self.__bot_character) and author_id == self.id:
+                if message_text.startswith(INVISIBLE_CHARACTER) and author_id == self.id:
                     message_text = message_text[1:]
 
                     by_bot = True
@@ -2984,9 +2980,6 @@ class Account:
 
     @staticmethod
     def chat_id_private(chat_id: int | str): return isinstance(chat_id, int) or PRIVATE_CHAT_ID_RE.fullmatch(chat_id)
-
-    @property
-    def bot_character(self) -> str: return self.__bot_character
 
     @property
     def locale(self) -> Literal['ru', 'en', 'uk'] | None: return self.__locale

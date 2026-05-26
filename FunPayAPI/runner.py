@@ -17,7 +17,8 @@ from time import time, sleep
 
 from . import (
     exceptions, OrderStatuses, generate_random_tag, BuyerViewing, ChatShortcut, OrderShortcut, InitialChatEvent, ChatsListChangedEvent, LastChatMessageChangedEvent,
-    NewMessageEvent, InitialOrderEvent, OrdersListChangedEvent, NewOrderEvent, OrderStatusChangedEvent, RunnerPayload, RunnerObject, RunnerRequest, RunnerResponse
+    NewMessageEvent, InitialOrderEvent, OrdersListChangedEvent, NewOrderEvent, OrderStatusChangedEvent, RunnerPayload, RunnerObject, RunnerRequest, RunnerResponse,
+    INVISIBLE_CHARACTER
 )
 
 
@@ -209,7 +210,7 @@ class Runner:
             node_msg_id = int(chat.get('data-node-msg'))
             user_msg_id = int(chat.get('data-user-msg'))
             by_bot = False
-            if last_msg_text.startswith(self.account.bot_character):
+            if last_msg_text.startswith(INVISIBLE_CHARACTER):
                 last_msg_text = last_msg_text[1:]
                 by_bot = True
             if self.chats_last_messages.get(chat_id):

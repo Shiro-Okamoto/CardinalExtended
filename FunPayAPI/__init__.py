@@ -6,8 +6,9 @@ from .runner import *
 
 
 __all__ = [
-    'exceptions',
+    'INVISIBLE_CHARACTER',
     'generate_random_tag',
+    'exceptions',
     'PRIVATE_CHAT_ID_RE',
     'ORDER_ID_RE',
     'PRODUCTS_AMOUNT_RE',

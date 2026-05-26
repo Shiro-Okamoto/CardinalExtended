@@ -2,12 +2,12 @@
 from __future__ import annotations
 
 
-from . import exceptions
+INVISIBLE_CHARACTER = '⁡'
+'Если сообщение начинается с этого символа, значит оно отправлено ботом.'
 
 
 import string
 import random
-
 
 def generate_random_tag() -> str:
     """
@@ -18,12 +18,16 @@ def generate_random_tag() -> str:
     return "".join(random.choice(string.digits + string.ascii_lowercase) for _ in range(10))
 
 
-import re
+from . import exceptions
+
 
 
 # ---------------------------------------------------------------------------- #
 #                           Регулярные выражения (re)                          #
 # ---------------------------------------------------------------------------- #
+import re
+
+
 PRIVATE_CHAT_ID_RE = re.compile(r'users-(?P<user_1>\d+)-(?P<user_2>\d+)$')
 '''
 Скомпилированное регулярное выражение, описывающее айди чата вида users-{айди-1}-{айди-2}.
@@ -289,12 +293,14 @@ FUNPAY_URL_RE = re.compile(
 '''
 
 
+from .enums import *
 from .types import *
 
 
 __all__ = [
-    'exceptions',
+    'INVISIBLE_CHARACTER',
     'generate_random_tag',
+    'exceptions',
     'PRIVATE_CHAT_ID_RE',
     'ORDER_ID_RE',
     'PRODUCTS_AMOUNT_RE',
